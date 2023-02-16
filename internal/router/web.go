@@ -103,11 +103,12 @@ func (router *WebRouter) WatchWeb() (*fsnotify.Watcher, func()) {
 
 		for {
 			select {
-			case _, ok := <-watcher.Events:
+			case event, ok := <-watcher.Events:
 				if !ok {
 					return
 				}
 				etag = generateETag()
+				log.Println(event)
 				log.Println("Web 資料夾更新，新的版本標記更新為" + etag)
 			case err, ok := <-watcher.Errors:
 				if !ok {
