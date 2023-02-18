@@ -57,29 +57,10 @@ func (engine *WebRouter) Init() {
 	// API 路由
 	apiGroup := engine.Engine.Group("api")
 	{
-		// Folder
-		folderGroup := apiGroup.Group("folder")
-		{
-			folderGroup.Use(middlewares.VerifyUser, middlewares.VerifyFolderPermission)
-			folderGroup.GET("/:folderid", controllers.GetFolder)
-			// folderGroup.POST("/:folderid", controllers.CreateFolder)
-			// folderGroup.PUT("/:folderid", controllers.EditFolder)
-			// folderGroup.DELETE("/:folderid", controllers.DeleteFolder)
-		}
-
-		// File
-		fileGroup := apiGroup.Group("file")
-		{
-			fileGroup.Use(middlewares.VerifyUser, middlewares.VerifyFolderPermission)
-			// fileGroup.POST("/:folderid", controllers.UploadFile)
-			// fileGroup.PUT("/:folderid", controllers.EditFile)
-			// fileGroup.DELETE("/:folderid", controllers.DeleteFile)
-		}
-
 		// User
 		userGroup := apiGroup.Group("user")
 		{
-			userGroup.POST("/", controllers.Register)
+			userGroup.POST("/register", controllers.Register)
 			userGroup.POST("/login", controllers.Login)
 			userGroup.POST("/validate", middlewares.RequireAuth, controllers.Validate)
 		}
